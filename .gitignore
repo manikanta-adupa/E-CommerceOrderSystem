@@ -1,0 +1,92 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# Compiled Java class files (We only want source code, not the result)
+*.class
+
+# Maven Build Directory (Crucial! This folder gets huge)
+/target/
+
+# IntelliJ IDEA Specific files (Your personal settings)
+.idea/
+
+# Eclipse Specific files
+.settings/
+
+# Visual Studio Code
+
+# OS Specific junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+```
+
+### 🧹 Step 2: Clean up the Staging Area
+
+If you previously ran `git add .`, you probably added the `target` folder and `.idea` folder to the "staging area" (ready to be committed). We need to remove them from Git's memory *without* deleting them from your computer.
+
+Run these commands in your terminal:
+
+```bash
+# 1. Unstage everything
+git reset
+
+# 2. Make sure the .gitignore file is saved.
+
+# 3. Add everything again (This time, Git will respect the ignore file)
+git add .
+
+# 4. Check what is being committed
+git status
+```
+
+**What to look for in `git status`:**
+* **Good:** You see `src/main/java/...`, `pom.xml`, `.gitignore`.
+* **Bad:** You see `target/classes/...`, `.idea/...`. (If you see these, stop and check your `.gitignore` file).
+
+### 💡 A Note on Secrets (Password)
+
+Currently, your `application.properties` contains:
+`spring.datasource.password=YOUR_PASSWORD`
+
+If you push this to a **Public** GitHub repository, hackers (bots) will see your password.
+* **For Learning:** Since this is just your local MySQL `root` password and not a real production server, it is acceptable to commit it for now to keep things simple.
+* **For Production:** We never commit `application.properties`. We inject passwords using Environment Variables. We will learn this in the AWS phase.
+
+**Once your `git status` looks clean (no `target` folder), go ahead and Commit:**
+
+```bash
+git commit -m "Phase 1: Database Schema Complete"
